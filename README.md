@@ -14,9 +14,7 @@ Plugin 'pgularski/rdirmapper.vim'
 ```
 
 # Sample config
-Place the `.rdirmapper` file in the project's directory.
-
-.rdirmapper:
+Place the `.rdirmapper` file in the project's directory:
 ```
 [example-server]
 ; Use ~/.ssh/config by default
