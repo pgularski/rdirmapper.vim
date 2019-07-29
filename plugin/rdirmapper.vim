@@ -20,10 +20,13 @@ import rdirmapper
 EOF
 
 function! ScpToHost(host)
-    python3 rdirmapper.scp_to_host(vim.eval('a:host'))
+python3 << EOF
+host = vim.eval('a:host')
+rdirmapper.scp_to_host(host)
+EOF
 endfunction
 
-command! -nargs=* ScpToHost call ScpToHost(<f-args>)
+command! -nargs=+ ScpToHost call ScpToHost(<f-args>)
 
 
 let g:rdirmapper_plugin_loaded = 1

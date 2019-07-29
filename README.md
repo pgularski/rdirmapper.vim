@@ -24,5 +24,8 @@ relative/directory/path/file.name = /remote/directory/path
 /absolute/directory/path = /remote/directory/path
 /absolute/directory/path/with/a/slash/ = /remote/directory/path
 relative/directory/path = /remote/directory/path
+
+[example-host.settings]
+username = root
 ```
 

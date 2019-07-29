@@ -45,8 +45,12 @@ def scp_to_host(host):
         print('No mappings found for {}'.format(host))
         return
 
-    for local_path in config[host]:
-        print(local_path, config[host][local_path])
+    settings_section = host + '.settings'
+    username = None
+    if settings_section in config:
+        print('Custom {} settings found'.format(host))
+        if 'username' in config[settings_section]:
+            username = config[settings_section]['username']
 
     current_file = vim.current.buffer.name
     current_dir = abspath(dirname(current_file))
@@ -66,12 +70,14 @@ def scp_to_host(host):
 
     for path in path_order:
         if path in config[host]:
-            print("Path found: {}".format(path))
             dest_path = config[host][path]
-            cmd = "scp {current_file} {host}:{dest_path}".format(
+            username_at = username + '@' if username else ''
+            cmd = "scp {current_file} {username_at}{host}:{dest_path}".format(
                     current_file=current_file,
+                    username_at=username_at,
                     host=host,
                     dest_path=dest_path)
+            print("Executing command: {}".format(cmd))
             proc = subprocess.Popen(cmd, shell=True)
             ret = proc.wait()
             if ret != 0:
