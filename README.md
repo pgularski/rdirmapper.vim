@@ -48,5 +48,9 @@ Host example-host
 ```
 [example-host]
 /local/file/path/file.name = /remote/file/path/file.name
-local/path/with/.ridmapper-containg/dir/as/root = /remote/path
+local/path/with/.ridmapper/path/ = /remote/path
 ```
+
+# Requirements
+Your vim has to be compiled with Python3 support.
+Run `vim --version` to see if `+python3` is there.
