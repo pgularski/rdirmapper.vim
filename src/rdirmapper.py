@@ -2,6 +2,8 @@ import vim
 import os
 import configparser
 import subprocess
+import shlex
+from subprocess import DEVNULL
 from os.path import abspath, dirname, relpath
 
 
@@ -28,8 +30,6 @@ def scp_to_host(host):
     #  print(vim.vars.keys())
     #  print(vim.vars.values())
     #  print(vim.options)
-    print("Host: {}".format(host))
-
     if not vim.current.buffer.name:
         print("Nothing to scp. No file opened.")
         return
@@ -77,9 +77,11 @@ def scp_to_host(host):
                     username_at=username_at,
                     host=host,
                     dest_path=dest_path)
-            print("Executing command: {}".format(cmd))
-            proc = subprocess.Popen(cmd, shell=True)
-            ret = proc.wait()
-            if ret != 0:
-                print('Something went wrong while SCP-ing the file!')
+            #  print("Running: {}".format(cmd))
+            vim.command('!' + cmd)
+            #  proc = subprocess.run(shlex.split(cmd), capture_output=True)
+            #  if proc.returncode != 0:
+            #      print('Something went wrong while SCP-ing the file!')
+            #      print(proc.stderr.decode())
             break
+    #  vim.command('redraw!')
