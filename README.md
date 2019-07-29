@@ -29,3 +29,4 @@ relative/directory/path = /remote/directory/path
 username = root
 ```
 
+The `section-name.settings` is NOT required
