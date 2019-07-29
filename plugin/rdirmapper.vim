@@ -19,11 +19,11 @@ sys.path.insert(0, python_root_dir)
 import rdirmapper
 EOF
 
-function! SayItWorks()
-    python3 rdirmapper.say_it_works()
+function! ScpToHost(host)
+    python3 rdirmapper.scp_to_host(vim.eval('a:host'))
 endfunction
 
-command! -nargs=0 SayItWorks call SayItWorks()
+command! -nargs=* ScpToHost call ScpToHost(<f-args>)
 
 
 let g:rdirmapper_plugin_loaded = 1

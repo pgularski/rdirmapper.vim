@@ -1,6 +1,9 @@
 import vim
 import os
 import configparser
+import subprocess
+from os.path import abspath, dirname, relpath
+
 
 RDIRMAPPER_FILENAME = '.rdirmapper'
 ROOT_DIR = '/'
@@ -21,26 +24,56 @@ def get_rdirmapper_dir():
 
 
 
-def say_it_works():
+def scp_to_host(host):
+    #  print(vim.vars.keys())
+    #  print(vim.vars.values())
+    #  print(vim.options)
+    print("Host: {}".format(host))
+
+    if not vim.current.buffer.name:
+        print("Nothing to scp. No file opened.")
+        return
     rdrirmapper_dir = get_rdirmapper_dir()
     if not rdrirmapper_dir:
         print('{} file not found!'.format(RDIRMAPPER_FILENAME))
         return
 
-    print(rdrirmapper_dir)
-
     config = configparser.ConfigParser()
     config.read(os.path.join(rdrirmapper_dir, RDIRMAPPER_FILENAME))
-    print(config.sections())
 
+    if host not in config:
+        print('No mappings found for {}'.format(host))
+        return
 
-    #  print("It works!")
-    #  print(os.getcwd())
-    # vim.current.line
-    #  print(vim.current.buffer.name)
-    #  print(vim.vars.keys())
-    #  print(vim.vars.values())
-    #  print(vim.options)
+    for local_path in config[host]:
+        print(local_path, config[host][local_path])
 
-def scp_to_host(filename, hostname):
-    pass
+    current_file = vim.current.buffer.name
+    current_dir = abspath(dirname(current_file))
+    current_file_relative = relpath(current_file,
+                                    start=rdrirmapper_dir)
+    current_dir_relative = relpath(dirname(current_file),
+                                    start=rdrirmapper_dir)
+
+    path_order = [
+            current_file,
+            current_file_relative,
+            current_dir,
+            current_dir + os.path.sep,
+            current_dir_relative,
+            current_dir_relative + os.path.sep,
+            ]
+
+    for path in path_order:
+        if path in config[host]:
+            print("Path found: {}".format(path))
+            dest_path = config[host][path]
+            cmd = "scp {current_file} {host}:{dest_path}".format(
+                    current_file=current_file,
+                    host=host,
+                    dest_path=dest_path)
+            proc = subprocess.Popen(cmd, shell=True)
+            ret = proc.wait()
+            if ret != 0:
+                print('Something went wrong while SCP-ing the file!')
+            break

@@ -16,17 +16,13 @@ Plugin 'pgularski/rdirmapper.vim'
 # Sample config
 Place the `.rdirmapper` file in the project's directory:
 ```
-[example-server]
-; Use ~/.ssh/config by default
-host = example-server
-; user = root
-; pass = xyz
-; port = 22
-; cmd = scp -P {port}{user}@{host}:{local} {remote}
 
-[example-server.paths]
-/local/file/path = /remote/file/path
-/local/directory/path = /remote/directory/path
-./local/path/with/.ridmapper-containg/dir/as/root = /remote/path
+[example-host]
+/local/file/path/file.name = /remote/file/path/file.name
+local/path/with/.ridmapper-containg/dir/as/root = /remote/path
+relative/directory/path/file.name = /remote/directory/path
+/absolute/directory/path = /remote/directory/path
+/absolute/directory/path/with/a/slash/ = /remote/directory/path
+relative/directory/path = /remote/directory/path
 ```
 
