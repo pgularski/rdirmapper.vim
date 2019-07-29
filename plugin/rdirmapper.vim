@@ -19,14 +19,14 @@ sys.path.insert(0, python_root_dir)
 import rdirmapper
 EOF
 
-function! ScpToHost(host)
+function! ScpTo(host)
 python3 << EOF
 host = vim.eval('a:host')
 rdirmapper.scp_to_host(host)
 EOF
 endfunction
 
-command! -nargs=+ ScpToHost call ScpToHost(<f-args>)
+command! -nargs=+ ScpTo call ScpTo(<f-args>)
 
 
 let g:rdirmapper_plugin_loaded = 1

@@ -3,7 +3,7 @@ Map remote files and/or directories to local ones. SCP at will.
 
 # Run
 ```
-:scpto example-server
+:ScpTo example-host
 ```
 It'll find a mapping for the currently open file and scp it to the remote server.
 
