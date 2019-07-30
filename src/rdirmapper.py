@@ -1,9 +1,6 @@
 import vim
 import os
 import configparser
-import subprocess
-import shlex
-from subprocess import DEVNULL
 from os.path import abspath, dirname, relpath
 
 
@@ -48,7 +45,6 @@ def scp_to_host(host):
     settings_section = host + '.settings'
     username = None
     if settings_section in config:
-        print('Custom {} settings found'.format(host))
         if 'username' in config[settings_section]:
             username = config[settings_section]['username']
 
@@ -77,11 +73,6 @@ def scp_to_host(host):
                     username_at=username_at,
                     host=host,
                     dest_path=dest_path)
-            #  print("Running: {}".format(cmd))
             vim.command('!' + cmd)
-            #  proc = subprocess.run(shlex.split(cmd), capture_output=True)
-            #  if proc.returncode != 0:
-            #      print('Something went wrong while SCP-ing the file!')
-            #      print(proc.stderr.decode())
             break
-    #  vim.command('redraw!')
+    vim.command('redraw!')
