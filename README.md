@@ -1,5 +1,5 @@
 # rdirmapper.vim
-Map remote files and/or directories to local ones. SCP at will.
+Vim plugin - map local and remote paths. SCP at will.
 
 # Run
 ```
