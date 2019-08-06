@@ -1,6 +1,8 @@
 # rdirmapper.vim
 Vim plugin - map local and remote paths. SCP at will.
 
+Instead of running `scp path/to/recently/edited/file.js example-host:/var/www/myapp/public/common/scipts/` every time you save a file, you can do `:ScpTo example-host` directly from vim. Hours saved.
+
 # Run
 ```
 :ScpTo example-host
