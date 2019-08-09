@@ -75,4 +75,6 @@ def scp_to_host(host):
                     dest_path=dest_path)
             vim.command('!' + cmd)
             break
-    vim.command('redraw!')
+    else:
+        print('No file mapping found for {}'.format(vim.current.buffer.name))
+    #  vim.command('redraw!')
